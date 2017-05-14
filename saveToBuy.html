@@ -11,7 +11,28 @@
         <link rel="stylesheet" href="assets/css/header/swatch-red-white.min.css">
         <link rel="stylesheet" href="assets/css/header/fonts.min.css" media="screen">
         <link rel="stylesheet" href="assets/css/style-lobby.css"/>
+        <link rel="stylesheet" href="assets/css/save-style.css"/>
         <link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
+        
+        <style type="text/css">
+            input[type="text"], input[type="text"]{
+                width: 300px;
+                padding: 5px 10px;
+                background: transparent;
+                border: 0;
+                border-bottom: 0.2px solid #ffffff;
+                outline: none;
+                color: #ffffff;
+                font-size: 20px;
+            }
+            ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: whitesmoke;
+            }
+            h2{
+                font-size: 30px;
+                padding: 10px 10px;
+            }
+        </style>
     </head>
     
     <body class="loading">
@@ -35,7 +56,6 @@
                 <nav class="collapse navbar-collapse main-navbar" role="navigation">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown"><a href ="information.html" >information</a></li>
-                    	<li class="dropdown"><a href =# >จำนวนเงิน</a></li>
                     	<li class="dropdown"><a href =login.html >Logout</a></li>     
                     </ul>
                 </nav>
@@ -46,12 +66,37 @@
         <div id="main">
             <!-- Header -->
                 <header id="header">
-                    
-                    
-                </header>
+                    <h1>Save to buy</h1><br>
+                    <input type="text" name="txt_id" id="YourTextBox" placeholder="Product Name" autocomplete="off"><br>
+                    <input type="text" name="txt_id" id="YourTextBox" placeholder="Money to buy (per day)" autocomplete="off"><br><br>
+                    <h2>Duration to save</h2>
+                    <div class="container">
+                        <input type="radio" class="radio" name="progress" value="five" id="five" checked>
+                        <label for="five" class="label">7 Days</label>
 
+                        <input type="radio" class="radio" name="progress" value="twentyfive" id="twentyfive" >
+                        <label for="twentyfive" class="label">15 Days</label>
+
+                        <input type="radio" class="radio" name="progress" value="fifty" id="fifty">
+                        <label for="fifty" class="label">1 Month</label>
+
+                        <input type="radio" class="radio" name="progress" value="seventyfive" id="seventyfive">
+                        <label for="seventyfive" class="label">3 Month</label>
+
+                        <input type="radio" class="radio" name="progress" value="onehundred" id="onehundred">
+                        <label for="onehundred" class="label">6 Month</label>
+                        
+                        <div class="progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                        </div>
+
+
+                    <br><a href="saveToAom.html" class="btnLogin">Submit</a>
+                </header>
 				<!-- Footer -->
 					<footer id="footer">
+                        
 <!--						<span class="copyright">&copy;Design by <a href="http://www.x-rider.com/">bique14</a></span>-->
 					</footer>
 

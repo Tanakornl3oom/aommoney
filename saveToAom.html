@@ -12,6 +12,21 @@
         <link rel="stylesheet" href="assets/css/header/fonts.min.css" media="screen">
         <link rel="stylesheet" href="assets/css/style-lobby.css"/>
         <link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
+        <style type="text/css">
+            input[type="text"], input[type="text"]{
+                width: 250px;
+                padding: 5px 10px;
+                background: transparent;
+                border: 0;
+                border-bottom: 0.2px solid #ffffff;
+                outline: none;
+                color: #ffffff;
+                font-size: 30px;
+            }
+            ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: whitesmoke;
+            }
+        </style>
     </head>
     
     <body class="loading">
@@ -21,6 +36,7 @@
             
             <!-- HEADER -->
             <header id="masthead" class="navbar navbar-sticky swatch-red-white" role="banner">
+                
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".main-navbar">
@@ -35,7 +51,6 @@
                 <nav class="collapse navbar-collapse main-navbar" role="navigation">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown"><a href ="information.html" >information</a></li>
-                    	<li class="dropdown"><a href =# >จำนวนเงิน</a></li>
                     	<li class="dropdown"><a href =login.html >Logout</a></li>     
                     </ul>
                 </nav>
@@ -46,8 +61,9 @@
         <div id="main">
             <!-- Header -->
                 <header id="header">
-                    
-                    
+                    <h1>Save to Aom</h1><br>
+                    <input type="text" name="txt_id" id="YourTextBox" placeholder="Money" autocomplete="off"><br><br>
+                    <a href="saveToAom.html" class="btnLogin">Submit</a>
                 </header>
 
 				<!-- Footer -->
