@@ -219,32 +219,7 @@
 		</div>
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
          
-<!--
-        <script>
-        function myFunction(){
-            if (document.getElementById("txt_id1").value == '') {
-//                document.getElementById("demo").innerHTML = "ใส่ชื่อดิไอ้ควาย";
-                window.alert("ใส่ชื่อดิ");
-            }
-            else if (document.getElementById("txt_lastName1").value == '') {
-//                document.getElementById("demo").innerHTML = "ใส่นามสกุลดิไอ้ควาย";  
-                window.alert("ใส่นามสกุลดิ");
-            }
-            else if (document.getElementById("txt_email1").value == '') {
-//                document.getElementById("demo").innerHTML = "ใส่จดหมายอิเล็กทรอนิกส์ดิไอ้ควาย";  
-                window.alert("ใส่จดหมายอิเล็กทรอนิกส์");
-            }
-            else if (document.getElementById("txt_username1").value == '') {
-//                document.getElementById("demo").innerHTML = "ใส่ชื่อผู้้ใช้ดิไอ้ควาย";
-                window.alert("ใส่ชื่อผู้ใช้ดิ");
-            }
-            else if (document.getElementById("txt_password1").value == '') {
-//                document.getElementById("demo").innerHTML = "ใส่รหัสดิไอ้ควาย";
-                window.alert("ใส่รหัสดิไ");
-            }
-        }
-        </script>
--->
+
 		<script>
 			window.onload = function() { document.body.className = ''; }
 			window.ontouchmove = function() { return false; }

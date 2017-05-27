@@ -28,15 +28,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    
-                    <a href="lobby.html" class="navbar-brand">
+                    <a href="lobby.php" class="navbar-brand">
                         <img src="" alt=""><i class="fa fa-home" aria-hidden="true"></i> 
                     </a>
                 </div>
                 <nav class="collapse navbar-collapse main-navbar" role="navigation">
                     <ul class="nav navbar-nav navbar-right">
                     	<li class="dropdown"><a href =# >จำนวนเงิน $</a></li>
-                    	<li class="dropdown"><a href =login.html >Logout</a></li>     
+                       
+                    	<li class="dropdown"><a href =logout.php >Logout</a></li>   
+                     
                     </ul>
                     
                 </nav>
@@ -53,7 +54,7 @@
 //                    echo"<script type='text/javascript'>alert('Username or Password Incorrect!');</script>";
 //                    echo("<script>window.location = 'login.html';</script>");
 //	           }
-                echo"<script type='text/javascript'>alert('".$_SESSION["user"]." and ".$_SESSION["email"]."');</script>";
+//                echo"<script type='text/javascript'>alert('".$_SESSION["user"]." and ".$_SESSION["email"]."');</script>";
                 
 	           mysql_connect("localhost","root","123456");
 	           mysql_select_db("sapatawajae");
@@ -61,13 +62,20 @@
                     $strSQL = "SELECT * FROM login WHERE LUser = '". $_SESSION["user"]."' " ;
                     $objQuery = mysql_query($strSQL);
 	               $objResult = mysql_fetch_array($objQuery);
+                     $_SESSION["email"] = $objResult['LEmail'];
                 }else{
-
                     $strSQL = "SELECT * FROM login WHERE LEmail = '". $_SESSION["email"]."'" ;
                     $objQuery = mysql_query($strSQL);
 	               $objResult = mysql_fetch_array($objQuery);
-                
+                    $_SESSION["user"] = $objResult['LUser'];
                 }
+                $_SESSION["name"]  =$objResult['LName'];
+                    $_SESSION["lastname"]=$objResult['LLastName'];
+                    $_SESSION["type"]=$objResult['LType'];
+                    $_SESSION["money"] =$objResult['LMoney'];
+                    $_SESSION["STimes"] = 1;
+                    $_SESSION["days"] = 1;
+                session_write_close();
 	          
 ?>
                 <header id="header">
@@ -75,11 +83,10 @@
                     <h1><?php echo $objResult["LName"];?></h1>
                     <nav>
                         <ul>
-                            
                             <li><a href="chooseType.html" class="fa fa-money" title="Choose Save"><span class="label">Go</span></a></li>
-                            <li><a href="information.html" class="fa fa-user" title="User information"><span class="label">Go</span></a></li>
+                            <li><a href="information.php" class="fa fa-user" title="User information"><span class="label">Go</span></a></li>
                             <li><a href="history.html" class="fa fa-history" title="History"><span class="label">Go</span></a></li>
-                            <li><a href="archievement.html" class="fa fa-star" title="Archievement"><span class="label">Go</span></a></li>
+                            <li><a href="archievement.php" class="fa fa-star" title="Archievement"><span class="label">Go</span></a></li>
                             
                         </ul>
                     </nav>
