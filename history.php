@@ -24,17 +24,9 @@
                 $objConnect = mysql_connect("mysql.hostinger.in.th","u800381696_admin","z1x2c3") or die("Error Connect to Database");
                 $objDB = mysql_select_db("u800381696_mydb");
                 mysql_query("SET NAMES UTF8");
-                $strSQL = "SELECT * FROM history,saving WHERE history.Hdays = saving.SDays and saving.SUser = '".$_SESSION["user"]."' ";
+           
+                $strSQL = "SELECT * FROM history INNER JOIN saving ON history.Hdays = saving.SDays and saving.SUser = '".$_SESSION["user"]."' INNER JOIN save_to_buy ON history.Hdays = save_to_buy.SBDays and save_to_buy.SBUser = '".$_SESSION["user"]."'  ";
                 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
-                
-                $strSQL1 = "SELECT * FROM history,save_to_buy WHERE history.Hdays = save_to_buy.SBDays and save_to_buy.SBUser = '".$_SESSION["user"]."' ";
-                $objQuery1 = mysql_query($strSQL1) or die ("Error Query [".$strSQL."]");
-            
-//                $strSQL1 = "SELECT history.* FROM history,save_to_buy  WHERE history.HDays = save_to_buy.SBDays AND SUser = '".$_SESSION["user"]."'";
-//                $objQuery1 = mysql_query($strSQL1) or die ("Error Query [".$strSQL1."]");
-            // jjoin 3 table
-                
-               
                 
             ?>
             <!-- HEADER -->
@@ -91,6 +83,7 @@
                                     <?php
                                 }
                           ?>
+<!--
                                          <?php
                             while($objResult1 = mysql_fetch_array($objQuery1))
                             {
@@ -106,6 +99,7 @@
                                     <?php
                                 }
                           ?>
+-->
                            
                                     <tr>
                                    

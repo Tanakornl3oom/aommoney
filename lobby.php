@@ -19,30 +19,17 @@
 			<div id="bg"></div>
 <!--			<div id="overlay"></div>-->
             <?php
-	               session_start();
-            if($_SESSION["user"] = ""||$_SESSION["email"] = "")
-            {
-                header('Location: login.html');
-            }
-            else{
-//	               if( $_SESSION["user"] == "")
-//	           {
-//                    echo"<script type='text/javascript'>alert('Username or Password Incorrect!');</script>";
-//                    echo("<script>window.location = 'login.html';</script>");
-//	           }
-//                echo"<script type='text/javascript'>alert('".$_SESSION["user"]." and ".$_SESSION["email"]."');</script>";
-                
-	           mysql_connect("mysql.hostinger.in.th","u800381696_admin","z1x2c3");
-	           mysql_select_db("u800381696_mydb");
+	               session_start(); mysql_connect("mysql.hostinger.in.th","u800381696_admin","z1x2c3");
+                    mysql_select_db("u800381696_mydb");
                 if($_SESSION["user"] != ""){
                     $strSQL = "SELECT * FROM login WHERE LUser = '". $_SESSION["user"]."' " ;
                     $objQuery = mysql_query($strSQL);
-                    $objResult = mysql_fetch_array($objQuery);
-                    $_SESSION["email"] = $objResult['LEmail'];
+	               $objResult = mysql_fetch_array($objQuery);
+                     $_SESSION["email"] = $objResult['LEmail'];
                 }else{
                     $strSQL = "SELECT * FROM login WHERE LEmail = '". $_SESSION["email"]."'" ;
                     $objQuery = mysql_query($strSQL);
-                    $objResult = mysql_fetch_array($objQuery);
+	               $objResult = mysql_fetch_array($objQuery);
                     $_SESSION["user"] = $objResult['LUser'];
                 }
                 $_SESSION["name"]  =$objResult['LName'];
@@ -52,8 +39,8 @@
                
           
                 session_write_close();
-            }
-?>
+	          
+            ?>
             <!-- HEADER -->
             <header id="masthead" class="navbar navbar-sticky swatch-red-white" role="banner">
             <div class="container">

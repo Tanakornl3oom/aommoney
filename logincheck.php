@@ -1,8 +1,5 @@
 <?php
                    session_start();
-                    $_SESSION["user"] = "";
-                    $_SESSION["email"] = "";
-                    $_SESSION["password"] = "";
                    $conn = new mysqli("mysql.hostinger.in.th","u800381696_admin","z1x2c3","u800381696_mydb");
                    $conn->set_charset("utf8");
                     if($conn->connect_error){

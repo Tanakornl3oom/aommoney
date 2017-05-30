@@ -126,28 +126,6 @@
                           <?php
                                 }
                           ?>
-<!--
-                        <tr>
-                          <td><strong>หัดเก็บเงินบ้าง</strong></td>
-                          <td>เริ่มต้นออมเงินครั้งแรก</td>
-                          <td>No</td>
-                        </tr>
-                        <tr>
-                            <td><a href="index.html"><strong>เจ้าสัวน้อย</strong></a></td>
-                          <td>ออมเงินครบ100บาท</td>
-                          <td>No</td>
-                        </tr>
-                        <tr>
-                          <td><strong>ไม่ง้อพ่อแม่</strong></td>
-                          <td>ออมเงินเพื่อซื้อได้1ครั้ง</td>
-                          <td>No</td>
-                        </tr>					
-                        <tr>
-                          <td><strong>อีขี้โกง</strong></td>
-                          <td>ออมเงินเยอะเกิน</td>
-                          <td>No</td>
-                        </tr>    
--->
                       </tbody>
                     </table>
 

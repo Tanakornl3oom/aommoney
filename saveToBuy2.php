@@ -137,10 +137,10 @@
                                     
                                     $_SESSION["percent"]  = (($total+$tosave)/$_SESSION["price"])*100;
 //                                    echo"<script type='text/javascript'>alert('".$_SESSION["percent"]."');</script>";
-                                    if($total+$tosave >= $_SESSION["price"] && $_SESSION["percent"]>= 100){
+                                    if($total+$tosave >= $_SESSION["price"] || $_SESSION["percent"]>= 100){
                                         $_SESSION["moneyuser"] = $_SESSION["moneyuser"] +  ($_SESSION["price"] - ($total+$tosave));
                                         echo"<script type='text/javascript'>alert('ออม ".$name." สำเร็จแล้ว');</script>";
-                                        $strSQL1 = "SELECT *  FROM unlocks WHERE EUser = '". $_SESSION["user"]."' and EName = 'ไม่ง้อพ่อแม่" ;
+                                        $strSQL1 = "SELECT *  FROM unlocks WHERE EUser = '". $_SESSION["user"]."' and EName = 'ไม่ง้อพ่อแม่'" ;
                                          $objQuery1 =  $conn ->query($strSQL1);
                                         $objResult = $objQuery1->fetch_array();
 
@@ -219,7 +219,8 @@
                                 </table>
                                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
                                     <input type="text" name="txt_moneyToBuy2" id="YourTextBox" placeholder="Input money to save" autocomplete="off"><br>
-                                    <br><button type="submit"  value= "submit"  class="btnLogin">Submit</button><br><br>
+                                    <br>
+                                        <button type="submit"  value= "submit"  class="btnLogin">Submit</button>&nbsp;&nbsp;<a href="Deletegoal.php" class="btnLogin">Delete</a><br><br>
                                     </form>
                                     <div class="skillbar clearfix " data-percent="<?php echo $_SESSION["percent"]."%" ;?>">
                                         <div class="skillbar-title" style="background: #88cd2a;"><span>GOAL</span></div>

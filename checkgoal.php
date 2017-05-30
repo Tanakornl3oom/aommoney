@@ -20,11 +20,11 @@
                  $Period =  $result["SBPeriod"];
                 $name = $result["SBList"];
              }
-        if($amount +$To_save >=  $price){
+        if($amount +$To_save >=  $price ||($amount +$To_save) ==0 ){
             // unlock ach 
             //header stb1
              
-              $sql =  "UPDATE `save_to_buy` SET SBAmount = '0' ,  SBTo_save= '0' ";
+              $sql =  "UPDATE `save_to_buy` SET SBAmount = '0' ,  SBTo_save= '0' WHERE SBList = '".$name."' ";
             $objQuery= $conn ->query($sql);
                $_SESSION["percent"] =0.0;
               echo"<script type='text/javascript'>alert('ตั้งเป้าหมายใหม่กัน');</script>";
