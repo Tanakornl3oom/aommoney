@@ -21,10 +21,60 @@
 <!--			<div id="overlay"></div>-->
             
             <?php
-                $objConnect = mysql_connect("localhost","root","123456") or die("Error Connect to Database");
-                $objDB = mysql_select_db("sapatawajae");
+                session_start();
+                $objConnect = mysql_connect("mysql.hostinger.in.th","u800381696_admin","z1x2c3") or die("Error Connect to Database");
+                $objDB = mysql_select_db("u800381696_mydb");
                 mysql_query("SET NAMES UTF8");
-                $strSQL = "SELECT * FROM archievements ";
+               
+                
+                 $strSQL1 = "SELECT COUNT(*) FROM unlocks WHERE EUser = '".$_SESSION["user"]."' and EName = 'มาออมกัน'" ;
+                 $objQuery1 = mysql_query($strSQL1);
+                $objResult = mysql_fetch_array($objQuery1);
+                 
+                if($objResult[0] >= 1){
+                    $strSQL1 = "UPDATE `archievements` SET AStatus = 'Yes' WHERE AName = 'มาออมกัน'" ;
+                     $objQuery1 = mysql_query($strSQL1);
+                    $objResult = mysql_fetch_array($objQuery1);
+                }
+            
+                $strSQL1 = "SELECT COUNT(*) FROM unlocks WHERE EUser = '".$_SESSION["user"]."' and EName = 'หัดเก็บเงินบ้าง'" ;
+                 $objQuery1 = mysql_query($strSQL1);
+                $objResult = mysql_fetch_array($objQuery1);
+
+                if($objResult[0] >= 1){
+                    $strSQL1 = "UPDATE `archievements` SET AStatus = 'Yes' WHERE AName = 'หัดเก็บเงินบ้าง'" ;
+                     $objQuery1 = mysql_query($strSQL1);
+                    $objResult = mysql_fetch_array($objQuery1);
+                }
+            $strSQL1 = "SELECT COUNT(*) FROM unlocks WHERE EUser = '".$_SESSION["user"]."' and EName = 'อีขี้โกง'" ;
+                 $objQuery1 = mysql_query($strSQL1);
+                $objResult = mysql_fetch_array($objQuery1);
+
+                if($objResult[0] >= 1){
+                    $strSQL1 = "UPDATE `archievements` SET AStatus = 'Yes' WHERE AName = 'อีขี้โกง'" ;
+                     $objQuery1 = mysql_query($strSQL1);
+                    $objResult = mysql_fetch_array($objQuery1);
+                }
+            $strSQL1 = "SELECT COUNT(*) FROM unlocks WHERE EUser = '".$_SESSION["user"]."' and EName = 'เจ้าสัวน้อย'" ;
+                 $objQuery1 = mysql_query($strSQL1);
+                $objResult = mysql_fetch_array($objQuery1);
+
+                if($objResult[0] >= 1){
+                    $strSQL1 = "UPDATE `archievements` SET AStatus = 'Yes' WHERE AName = 'เจ้าสัวน้อย'" ;
+                     $objQuery1 = mysql_query($strSQL1);
+                    $objResult = mysql_fetch_array($objQuery1);
+                }
+            $strSQL1 = "SELECT COUNT(*) FROM unlocks WHERE EUser = '".$_SESSION["user"]."' and EName = 'ไม่ง้อพ่อแม่'" ;
+                 $objQuery1 = mysql_query($strSQL1);
+                $objResult = mysql_fetch_array($objQuery1);
+
+                if($objResult[0] >= 1){
+                    $strSQL1 = "UPDATE `archievements` SET AStatus = 'Yes' WHERE AName = 'ไม่ง้อพ่อแม่'" ;
+                     $objQuery1 = mysql_query($strSQL1);
+                    $objResult = mysql_fetch_array($objQuery1);
+                }
+            
+             $strSQL = "SELECT * FROM archievements ";
                 $objQuery = mysql_query($strSQL) or die ("Error Query [".$strSQL."]");
             ?>
             <!-- HEADER -->
@@ -43,7 +93,7 @@
                 <nav class="collapse navbar-collapse main-navbar" role="navigation">
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown"><a href ="information.php" >information</a></li>
-                    	<li class="dropdown"><a href =# >จำนวนเงิน</a></li>
+                    	<li class="dropdown"><a href =# ><?php echo "จำนวนเงิน".$_SESSION["moneyuser"]."$";?></a></li>
                     	<li class="dropdown"><a href =logout.php >Logout</a></li>     
                     </ul>
                 </nav>

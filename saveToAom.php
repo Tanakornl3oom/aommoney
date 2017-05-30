@@ -38,56 +38,84 @@
             <?php
             session_start();
            if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
-               $host = "localhost";
-                $username = "root";
-                $password = "123456";
-                $dbname = "sapatawajae";
-                $objConnect =  mysqli_connect($host,$username,$password,$dbname);
+               $conn = new mysqli("localhost","u800381696_admin","z1x2c3","u800381696_mydb");
+                $conn->set_charset("utf8");
+              
             $amount = $_REQUEST['txt_id'];
             if(empty($amount)){
                     echo"<script type='text/javascript'>alert('โปรดกรอกจำนวนเงิน');</script>";
             }
             else{
-                $str = "INSERT INTO `history`(`HDays`, `HType`, `HAmount`) VALUES ('2','saving','".$amount."')";
-                $result = mysqli_query($objConnect, $str);
+                $str = "INSERT INTO `history`(`HDays`, `HType`, `HAmount`) VALUES ('".$_SESSION["days"]."','saving','".$amount."')";
+                $result =  $conn ->query($str); 
                
                  
-            $strSQL = "SELECT `*` FROM `saving` WHERE STimes = '1'";
-            $objQuery =  mysqli_query($objConnect,$strSQL);         
-//            $resultuser =  mysqli_fetch_array($objQuery);
-               echo"<script type='text/javascript'>alert('".mysqli_num_rows($objQuery) ."');</script>";
-             
+            $strSQL = "SELECT COUNT(*) FROM `saving` WHERE SUser = '".$_SESSION["user"]."'";
+            $objQuery =   $conn ->query($strSQL);         
+            $resultuser =  $objQuery->fetch_array();
+               
             //total = total+amount
-            if(mysqli_num_rows($objQuery) >=1){
-               
-                
-//                    $total=$resultuser['STotal'];
-                    while($resultuser = mysqli_fetch_array($objQuery)){
-//                         $total =$resultuser['STotal'];
-                        
-                        
+            if( $resultuser[0] >=1){
+                $strSQL1 = "SELECT * FROM `saving` WHERE STimes = '".($_SESSION["STimes"]-1)."'";
+                $objQuery1 =   $conn ->query($strSQL1);  
+                    while($resultuser1 = $objQuery1->fetch_array()){
+                         $total =$resultuser1['STotal'];    
                     }
-//              echo"<script type='text/javascript'>alert('".$total."');</script>";
-                $total = $total+$amount;
-               
                 
-                $strSQLinsert = "INSERT INTO `saving`(`STimes`, `STotal`, `SAmount`, `SUser`, `SEmail`, `SDays`) VALUES ('".$_SESSION["STimes"]."','".$total."','".$amount."','".$_SESSION["user"]."','".$_SESSION["email"]."','2')";
-                 $result = mysqli_query($objConnect, $strSQLinsert);
+                $total = $total+$amount;
+             
+                
+                $strSQLinsert = "INSERT INTO `saving`(`STimes`, `STotal`, `SAmount`, `SUser`, `SEmail`, `SDays`) VALUES ('".$_SESSION["STimes"]."','".$total."','".$amount."','".$_SESSION["user"]."','".$_SESSION["email"]."','".$_SESSION["days"]."')";
+                 $result =  $conn ->query($strSQLinsert); 
             }
             //total = amount
             else{
                
                  $strSQLinsert = "INSERT INTO `saving`(`STimes`, `STotal`, `SAmount`, `SUser`, `SEmail`, `SDays`) VALUES ('".$_SESSION["STimes"]."','".$amount."','".$amount."','".$_SESSION["user"]."','".$_SESSION["email"]."','".$_SESSION["days"]."')";
-                 $result = mysqli_query($objConnect, $strSQLinsert);
+                 $result = $conn ->query($strSQLinsert);
               
             }
                if($result){      
-                    echo"<script type='text/javascript'>alert('Registration successful');</script>";
-                        echo("<script>window.location = 'lobby.php';</script>");
-                      $_SESSION["days"] =  $_SESSION["days"]+1;
+                   $_SESSION["moneyuser"] = $_SESSION["moneyuser"]+ $amount ;           
+                    echo"<script type='text/javascript'>alert('saving successful');</script>";
+                   if($total >=100 || $amount >=100 ){
+                       $strSQL1 = "SELECT COUNT(*)  FROM unlocks WHERE EUser = '". $_SESSION["user"]."' and EName = 'เจ้าสัวน้อย'" ;
+                         $objQuery1 = $conn ->query($strSQL1);
+                        $objResult = $objQuery1->fetch_array();
+
+                        if($objResult[0]<1){
+                              echo"<script type='text/javascript'>alert('unlocks archievement เจ้าสัวน้อย.');</script>";
+                             $strSQL1 = "INSERT INTO `unlocks`(`EUser`, `EEmail`, `EName`) VALUES ('".$_SESSION["user"]."','".$_SESSION["email"]."','เจ้าสัวน้อย')" ;
+                         $objQuery1 = $conn ->query($strSQL1);
+                        }
+                   }
+                   if ( $amount >=1000000 ){
+                       $strSQL1 = "SELECT COUNT(*)  FROM unlocks WHERE EUser = '". $_SESSION["user"]."' and EName = 'อีขี้โกง'" ;
+                         $objQuery1 = $conn ->query($strSQL1);
+                        $objResult =  $objQuery1->fetch_array();
+
+                        if($objResult[0]<1){
+                              echo"<script type='text/javascript'>alert('unlocks archievement อีขี้โกง.');</script>";
+                             $strSQL1 = "INSERT INTO `unlocks`(`EUser`, `EEmail`, `EName`) VALUES ('".$_SESSION["user"]."','".$_SESSION["email"]."','อีขี้โกง')" ;
+                         $objQuery1 = $conn->query($strSQL1);
+                        }
+                   }else{
+                       $strSQL1 = "SELECT COUNT(*)  FROM unlocks WHERE EUser = '". $_SESSION["user"]."' and EName = 'หัดเก็บเงินบ้าง'" ;
+                         $objQuery1 = $conn->query($strSQL1);
+                        $objResult =  $objQuery1->fetch_array();
+                        if($objResult[0]<1){
+                              echo"<script type='text/javascript'>alert('unlocks archievement หัดเก็บเงินบ้าง.');</script>";
+                             $strSQL1 = "INSERT INTO `unlocks`(`EUser`, `EEmail`, `EName`) VALUES ('".$_SESSION["user"]."','".$_SESSION["email"]."','หัดเก็บเงินบ้าง')" ;
+                         $objQuery1 = $conn ->query($strSQL1);
+                        }
+                   }
+                   
+                    echo("<script>window.location = 'lobby.php';</script>");
+                    $_SESSION["days"] =  $_SESSION["days"]+1;
+                     $_SESSION["STimes"] = $_SESSION["STimes"]+1;
                 }
                 else{
-                   echo "Registration failed";
+                   echo "saving failed";
                 }
             
           

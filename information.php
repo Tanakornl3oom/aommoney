@@ -101,7 +101,7 @@
                 </div>
                 <nav class="collapse navbar-collapse main-navbar" role="navigation">
                     <ul class="nav navbar-nav navbar-right">
-<!--                    	<li class="dropdown"><a href =# >จำนวนเงิน</a></li>-->
+                    	<li class="dropdown"><a href =# ><?php echo "จำนวนเงิน".$_SESSION["moneyuser"]."$";?></a></li>
                     	<li class="dropdown"><a href =logout.php >Logout</a></li>     
                     </ul>
                     
