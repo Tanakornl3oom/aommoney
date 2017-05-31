@@ -81,89 +81,74 @@
 <!--			<div id="overlay"></div>-->
             
             <!-- HEADER -->
-            <?php
-                session_start();
-               if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
-               $conn = new mysqli("mysql.hostinger.in.th","u800381696_admin","z1x2c3","u800381696_mydb");
-                $conn->set_charset("utf8");
-                   $total = 0.0;
-                   $amount = $_REQUEST['txt_moneyToBuy2'];
-                  $_SESSION["percent"] =0.0;
-                   $tosave = 0;
-                   if(empty($amount)){
-                         echo"<script type='text/javascript'>alert('กรุณากรอกจำนวนเงิน');</script>";
-                   }else{
-                      
-                       $str = "INSERT INTO `history`(`HDays`, `HType`, `HAmount`) VALUES ('".$_SESSION["days"]."','save_to_goal','".$amount."')";
-                       $result = $conn ->query($str); 
-                       
-                        $strSQL = "SELECT COUNT(*) FROM `save_to_buy` WHERE SBUser = '".$_SESSION["user"]."'";
-                        $objQuery =  $conn ->query($strSQL);         
-                        $resultuser =   $objQuery->fetch_array();
-                        
-                       
-                        if( $resultuser[0] >=1){
-                            $strSQL1 = "SELECT * FROM `save_to_buy` WHERE SBUser = '".$_SESSION["user"]."'";
-                            $objQuery1 =  $conn ->query($strSQL1);  
-                            while($resultuser1 =  $objQuery1->fetch_array()){
-                                $total = $resultuser1['SBAmount'];  
-                                $tosave = $resultuser1['SBTo_save'];  
-                                $name =  $resultuser1['SBList'];
-                            }
-                        $total = $total+($amount-($amount-$_SESSION["musthave"]));
-                       $tosave = $tosave +($amount-$_SESSION["musthave"]);
-
-                           $strSQLinsert =" INSERT INTO `save_to_buy`(`SBList`, `SBPeriod`, `SBAmount`, `SBTo_save`, `SBPrice_list`, `SBUser`, `SBEmail`, `SBDays`) VALUES ('".$_SESSION["namelist"]."','" .$_SESSION["duration"]."','".$total."','".$tosave."','".$_SESSION["price"]."','".$_SESSION["user"]."','".$_SESSION["email"]."','".$_SESSION["days"]."')";
-                            $result = $conn ->query($strSQLinsert); 
-            
-                     
-                            
+                <?php
+                    session_start();
+                    if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
+                        $conn = new mysqli("mysql.hostinger.in.th","u800381696_admin","z1x2c3","u800381696_mydb");
+                        $conn->set_charset("utf8");
+                        $total = 0.0;
+                        $amount = $_REQUEST['txt_moneyToBuy2'];
+                        $_SESSION["percent"] =0.0;
+                        $tosave = 0;
+                        if(empty($amount)){
+                             echo"<script type='text/javascript'>alert('กรุณากรอกจำนวนเงิน');</script>";
                         }else{
-                             $total = $total+($amount-($amount-$_SESSION["musthave"]));
-                             $tosave = $amount-$_SESSION["musthave"];
-                            if($amount - $_SESSION["musthave"] > 0){
-                           
-                           $strSQLinsert =" INSERT INTO `save_to_buy`(`SBList`, `SBPeriod`, `SBAmount`, `SBTo_save`, `SBPrice_list`, `SBUser`, `SBEmail`, `SBDays`) VALUES ('".$_SESSION["namelist"]."','" .$_SESSION["duration"]."','".$total."','".($amount-$_SESSION["musthave"])."','".$_SESSION["price"]."','".$_SESSION["user"]."','".$_SESSION["email"]."','".$_SESSION["days"]."')";
-                            $result = $conn ->query($strSQLinsert); 
-                       }
-                       else{
-                           $strSQLinsert =" INSERT INTO `save_to_buy`(`SBList`, `SBPeriod`, `SBAmount`, `SBTo_save`, `SBPrice_list`, `SBUser`, `SBEmail`, `SBDays`) VALUES ('".$_SESSION["namelist"]."','" .$_SESSION["duration"]."','".$total."','0','".$_SESSION["price"]."','".$_SESSION["user"]."','".$_SESSION["email"]."','".$_SESSION["days"]."')";
-                            $result = $conn ->query($strSQLinsert); 
-                       }
-                            
-                    }
-                       
-                        if($result){      
-                                    
-                                    $_SESSION["percent"]  = (($total+$tosave)/$_SESSION["price"])*100;
-//                                    echo"<script type='text/javascript'>alert('".$_SESSION["percent"]."');</script>";
-                                    if($total+$tosave >= $_SESSION["price"] || $_SESSION["percent"]>= 100){
-                                        $_SESSION["moneyuser"] = $_SESSION["moneyuser"] +  ($_SESSION["price"] - ($total+$tosave));
-                                        echo"<script type='text/javascript'>alert('ออม ".$name." สำเร็จแล้ว');</script>";
-                                        $strSQL1 = "SELECT *  FROM unlocks WHERE EUser = '". $_SESSION["user"]."' and EName = 'ไม่ง้อพ่อแม่'" ;
-                                         $objQuery1 =  $conn ->query($strSQL1);
-                                        $objResult = $objQuery1->fetch_array();
+                            $str = "INSERT INTO `history`(`HDays`, `HType`, `HAmount`) VALUES ('".$_SESSION["days"]."','save_to_goal','".$amount."')";
+                            $result = $conn ->query($str); 
 
-                                        if(count($objResult[0])<1){
-                                              echo"<script type='text/javascript'>alert('unlocks archievement ไม่ง้อพ่อแม่');</script>";
-                                             $strSQL1 = "INSERT INTO `unlocks`(`EUser`, `EEmail`, `EName`) VALUES ('".$_SESSION["user"]."','".$_SESSION["email"]."','ไม่ง้อพ่อแม่')" ;
-                                         $objQuery1 = $conn ->query($strSQL1);
-                                        }
-                                    }else{
-                                    
-                                        echo"<script type='text/javascript'>alert('เก็บเงินแล้ว');</script>";
-                                    }
-                                    echo("<script>window.location = 'lobby.php';</script>");
-                                    $_SESSION["days"] =  $_SESSION["days"]+1;
-                                    
+                            $strSQL = "SELECT COUNT(*) FROM `save_to_buy` WHERE SBUser = '".$_SESSION["user"]."'";
+                            $objQuery =  $conn ->query($strSQL);         
+                            $resultuser =   $objQuery->fetch_array();
+                            if( $resultuser[0] >=1){
+                                $strSQL1 = "SELECT * FROM `save_to_buy` WHERE SBUser = '".$_SESSION["user"]."'";
+                                $objQuery1 =  $conn ->query($strSQL1);  
+                                while($resultuser1 =  $objQuery1->fetch_array()){
+                                    $total = $resultuser1['SBAmount'];  
+                                    $tosave = $resultuser1['SBTo_save'];  
+                                    $name =  $resultuser1['SBList'];
+                                }
+                                $total = $total+($amount-($amount-$_SESSION["musthave"]));
+                                $tosave = $tosave +($amount-$_SESSION["musthave"]);
+
+                                $strSQLinsert =" INSERT INTO `save_to_buy`(`SBList`, `SBPeriod`, `SBAmount`, `SBTo_save`, `SBPrice_list`, `SBUser`, `SBEmail`, `SBDays`) VALUES ('".$_SESSION["namelist"]."','" .$_SESSION["duration"]."','".$total."','".$tosave."','".$_SESSION["price"]."','".$_SESSION["user"]."','".$_SESSION["email"]."','".$_SESSION["days"]."')";
+                                $result = $conn ->query($strSQLinsert); 
+                            }else{
+                                $total = $total+($amount-($amount-$_SESSION["musthave"]));
+                                $tosave = $amount-$_SESSION["musthave"];
+                                if($amount - $_SESSION["musthave"] > 0){
+                                    $strSQLinsert =" INSERT INTO `save_to_buy`(`SBList`, `SBPeriod`, `SBAmount`, `SBTo_save`, `SBPrice_list`, `SBUser`, `SBEmail`, `SBDays`) VALUES ('".$_SESSION["namelist"]."','" .$_SESSION["duration"]."','".$total."','".($amount-$_SESSION["musthave"])."','".$_SESSION["price"]."','".$_SESSION["user"]."','".$_SESSION["email"]."','".$_SESSION["days"]."')";
+                                    $result = $conn ->query($strSQLinsert); 
+                                }else{
+                                    $strSQLinsert =" INSERT INTO `save_to_buy`(`SBList`, `SBPeriod`, `SBAmount`, `SBTo_save`, `SBPrice_list`, `SBUser`, `SBEmail`, `SBDays`) VALUES ('".$_SESSION["namelist"]."','" .$_SESSION["duration"]."','".$total."','0','".$_SESSION["price"]."','".$_SESSION["user"]."','".$_SESSION["email"]."','".$_SESSION["days"]."')";
+                                    $result = $conn ->query($strSQLinsert); 
+                                }
                             }
-                             else{
-                               echo "เก็บเงินไม่สำเร็จ";
-                             }
 
-                   }
-                  
-               }
+                            if($result){      
+                                $_SESSION["percent"]  = (($total+$tosave)/$_SESSION["price"])*100;
+                                //                                    echo"<script type='text/javascript'>alert('".$_SESSION["percent"]."');</script>";
+                                if($total+$tosave >= $_SESSION["price"] || $_SESSION["percent"]>= 100){
+                                    $_SESSION["moneyuser"] = $_SESSION["moneyuser"] +  ($_SESSION["price"] - ($total+$tosave));
+                                    echo"<script type='text/javascript'>alert('ออม ".$name." สำเร็จแล้ว');</script>";
+                                    $strSQL1 = "SELECT *  FROM unlocks WHERE EUser = '". $_SESSION["user"]."' and EName = 'ไม่ง้อพ่อแม่'" ;
+                                    $objQuery1 =  $conn ->query($strSQL1);
+                                    $objResult = $objQuery1->fetch_array();
+                                    if(count($objResult[0])<1){
+                                        echo"<script type='text/javascript'>alert('unlocks archievement ไม่ง้อพ่อแม่');</script>";
+                                        $strSQL1 = "INSERT INTO `unlocks`(`EUser`, `EEmail`, `EName`) VALUES ('".$_SESSION["user"]."','".$_SESSION["email"]."','ไม่ง้อพ่อแม่')" ;
+                                        $objQuery1 = $conn ->query($strSQL1);
+                                    }
+                                }else{
+                                    echo"<script type='text/javascript'>alert('เก็บเงินแล้ว');</script>";
+                                }
+                                echo("<script>window.location = 'lobby.php';</script>");
+                                $_SESSION["days"] =  $_SESSION["days"]+1;
+
+                            }else{
+                                echo "เก็บเงินไม่สำเร็จ";
+                            }
+                        }
+                    }// end if POST
             
             
             ?>

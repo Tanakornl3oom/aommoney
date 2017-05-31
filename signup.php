@@ -32,26 +32,26 @@
 				<!-- Header -->
 					<header id="header">
                         <?php
-                                $nameerr ="";
-                                $lasterr ="";
-                                $emailerr ="";
-                                $usererr = "";
-                                $passworderr ="";
-                                $moneyerr ="";
-                                
+                            $nameerr ="";
+                            $lasterr ="";
+                            $emailerr ="";
+                            $usererr = "";
+                            $passworderr ="";
+                            $moneyerr ="";
 
-                                $chkuser    = "false";
-                                $chkpass    = "false";
-                                $chkname    = "false";
-                                $chklast    = "false";
-                                $chkemail   = "false";
-                                $chkmon     = "false";
 
-                                $host = "mysql.hostinger.in.th";
-                                $username = "u800381696_admin";
-                                $password = "z1x2c3";
-                                $dbname = "u800381696_mydb";
-                                $objConnect =  mysqli_connect($host,$username,$password,$dbname);
+                            $chkuser    = "false";
+                            $chkpass    = "false";
+                            $chkname    = "false";
+                            $chklast    = "false";
+                            $chkemail   = "false";
+                            $chkmon     = "false";
+
+                            $host = "mysql.hostinger.in.th";
+                            $username = "u800381696_admin";
+                            $password = "z1x2c3";
+                            $dbname = "u800381696_mydb";
+                            $objConnect =  mysqli_connect($host,$username,$password,$dbname);
                             if(!$objConnect){
                                die("connection failed" .mysqli_connect_error());
                             }
@@ -59,7 +59,6 @@
                             if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                                 $user = $pass = $name =   $lastname = $email =   $money  = "";
                              
-                                
                                 if(empty($_REQUEST['txt_username']) ){
                                     $usererr = "User is required ";
                                 }else{
@@ -88,28 +87,26 @@
                                 
                                 if(empty($_REQUEST['txt_lastName']) ){
                                     $lasterr = "lastName is required ";
-                                }
-                                else{
+                                }else{
                                     $lastname = test_input($_REQUEST['txt_lastName']);
                                     $chklast = "true";
                                     if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-                                            $lasterr = "Only letters and white space allowed"; 
-                                            $chklast = "false";
+                                        $lasterr = "Only letters and white space allowed"; 
+                                        $chklast = "false";
                                     }
                                 }
                                 
                                 if(empty($_REQUEST['txt_email']) ){
                                     $emailerr = "Email is required ";
-                                }
-                                else{
+                                }else{
                                     $email = test_input($_REQUEST['txt_email']);
                                     $chkemail = "true";
                                     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                                            $emailerr = "Invalid email format";
-                                            $chkemail = "false";
+                                        $emailerr = "Invalid email format";
+                                        $chkemail = "false";
                                      }
                                 }
-                                 if(empty($_REQUEST['txt_money'])){
+                                if(empty($_REQUEST['txt_money'])){
                                     $moneyerr = "Money is required ";
                                 }else{
                                     $money = test_input($_REQUEST['txt_money']);
@@ -117,72 +114,55 @@
                                 }
                        
                                 
-                            $chkall =($chkuser &&  $chkpass && $chkname && $chklast && $chkemail && $chkmon);
-                            if($chkall == '1'){
-               
-                             $type = test_input($_REQUEST['chkTypeMoney']);
-                                
+                                $chkall =($chkuser &&  $chkpass && $chkname && $chklast && $chkemail && $chkmon);
+                                if($chkall == '1'){
 
-                            $user = mysqli_real_escape_string($objConnect,$_POST['txt_username']);
-                            $strSQL = "SELECT `LUser` FROM `login` WHERE LUser = '".$user."' ";
-                            $objQuery =  mysqli_query($objConnect,$strSQL);
-                            $resultuser =  mysqli_fetch_array($objQuery);
-                            
+                                    $type = test_input($_REQUEST['chkTypeMoney']);
 
-                            $email = mysqli_real_escape_string($objConnect,$_POST['txt_email']);
-                            $strSQL1 = "SELECT `LEmail` FROM `login` WHERE LEmail = '".$email."' ";
-                            $objQuery1 =  mysqli_query($objConnect,$strSQL1);
-                            $resultmail =  mysqli_fetch_array($objQuery1);
-                            
-                        
-                                
-                             if(count($resultuser) >=1 || count($resultmail) >=1){
-                                if(count($resultuser) >=1)
-                                    echo $user." is already\n";
+
+                                    $user = mysqli_real_escape_string($objConnect,$_POST['txt_username']);
+                                    $strSQL = "SELECT `LUser` FROM `login` WHERE LUser = '".$user."' ";
+                                    $objQuery =  mysqli_query($objConnect,$strSQL);
+                                    $resultuser =  mysqli_fetch_array($objQuery);
+
+
+                                    $email = mysqli_real_escape_string($objConnect,$_POST['txt_email']);
+                                    $strSQL1 = "SELECT `LEmail` FROM `login` WHERE LEmail = '".$email."' ";
+                                    $objQuery1 =  mysqli_query($objConnect,$strSQL1);
+                                    $resultmail =  mysqli_fetch_array($objQuery1);
+
+                                    if(count($resultuser) >=1 || count($resultmail) >=1){
+                                        if(count($resultuser) >=1)
+                                            echo $user." is already\n";
                                         if (count($resultmail) >=1)
                                             echo $email." is already";
-                                
-                            } 
-                            else{          
-                                
-                                
+                                    }else{          
+                                        $strSQLinsert = "INSERT INTO `login`(`LUser`, `LEmail`, `LPassword`, `LName`, `LLastName`, `LType`, `LMoney`) VALUES ('".$user."','".$email."','".$pass."','".$name."','".$lastname."','".$type."','".$money."')";
 
-                                $strSQLinsert = "INSERT INTO `login`(`LUser`, `LEmail`, `LPassword`, `LName`, `LLastName`, `LType`, `LMoney`) VALUES ('".$user."','".$email."','".$pass."','".$name."','".$lastname."','".$type."','".$money."')";
-
-                                 $result = mysqli_query($objConnect,$strSQLinsert);
-                                if($result){
-//                                    echo "Registration successful";
-                                    
-                                    echo"<script type='text/javascript'>alert('Registration successful');</script>";
-                                    echo("<script>window.location = 'login.html';</script>");
-//                                    header("Location: login.html");
-                                    
+                                        $result = mysqli_query($objConnect,$strSQLinsert);
+                                        if($result){
+                                            //                                    echo "Registration successful";
+                                            echo"<script type='text/javascript'>alert('Registration successful');</script>";
+                                            echo("<script>window.location = 'login.html';</script>");
+                                            //                                    header("Location: login.html");
+                                        }else{
+                                            echo "Registration failed";
+                                        }
+                                    }
+                                }else {
+                                    echo "โปรดกรอกข้อมูลให้ครบ";
                                 }
-                                else{
-                                   echo "Registration failed";
-                                }
-
-                            }
-                            }else {
-		                   
-	                               echo "โปรดกรอกข้อมูลให้ครบ";
-	                       }
                                  
                                 
-                            }
+                            }// end if POST
         
                             function test_input($data) {
-                              $data = trim($data);
-                              $data = stripslashes($data);
-                              $data = htmlspecialchars($data);
-                              return $data;
+                                $data = trim($data);
+                                $data = stripslashes($data);
+                                $data = htmlspecialchars($data);
+                                return $data;
                             }
-
-
-                                mysqli_close($objConnect);
-                            
-                        
-                           
+                            mysqli_close($objConnect);                           
                         ?>
 						<h1>Sign up</h1><br>
                         
@@ -191,26 +171,26 @@
                          <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"  >
                              
                             <input type="text" name="txt_Name" id="txt_Name" placeholder="Name">
-                             <span class="error">* <?php echo $nameerr;?></span>  <br><br>
+                            <span class="error">* <?php echo $nameerr;?></span>  <br><br>
                             <input type="text" name="txt_lastName" id="txt_lastName" placeholder="LastName">
-                             <span class="error">* <?php echo $lasterr;?></span>  <br><br>
+                            <span class="error">* <?php echo $lasterr;?></span>  <br><br>
                             <input type="text" name="txt_email" id="txt_email" placeholder="Email">
-                             <span class="error">* <?php echo $emailerr;?></span>  <br><br>
+                            <span class="error">* <?php echo $emailerr;?></span>  <br><br>
                             <input type="text" name="txt_username" id="txt_username" placeholder="Username">
-                             <span class="error">* <?php echo  $usererr;?></span>  <br><br>
+                            <span class="error">* <?php echo  $usererr;?></span>  <br><br>
                             <input type="password" name="txt_password" id="txt_password" placeholder="Password">
-                             <span class="error">* <?php echo $passworderr;?></span>  <br><br>
-                              <input type="text" name="txt_money" id="txt_money" placeholder="money">
-                             <span class="error">* <?php echo $moneyerr ;?></span>  <br><br>
+                            <span class="error">* <?php echo $passworderr;?></span>  <br><br>
+                            <input type="text" name="txt_money" id="txt_money" placeholder="money">
+                            <span class="error">* <?php echo $moneyerr ;?></span>  <br><br>
         
                                 Type of money
-                                <input type="radio" name="chkTypeMoney" value="daily" checked="checked"> Daily
-                                <input type="radio" name="chkTypeMoney" value="monthly"> Monthly<br>
+                            <input type="radio" name="chkTypeMoney" value="daily" checked="checked"> Daily
+                            <input type="radio" name="chkTypeMoney" value="monthly"> Monthly<br>
                              
                          
                          
               
-                             <button type = "submit" value = "submit" class="btnLogin">submit </button>
+                            <button type = "submit" value = "submit" class="btnLogin">submit </button>
                             <p id="demo"></p>
                         </form>
                          

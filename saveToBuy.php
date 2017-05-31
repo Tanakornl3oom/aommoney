@@ -42,44 +42,40 @@
             
             <!-- HEADER -->
              <?php
-            session_start();
+                session_start();
 //             echo"<script type='text/javascript'>alert(' ".$_SESSION["type"]."');</script>";
-           if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
-               if(empty($_REQUEST["name"])){
-                   echo"<script type='text/javascript'>alert('โปรดกรอกชื่อสินค้า');</script>";
-               }
-               if(empty($_REQUEST["price"])){
-                   echo"<script type='text/javascript'>alert('โปรดกรอกจำนวนเงินของสินค้า');</script>";
-               }
-               if($_SESSION["type"] == "monthly"){
-                   
-                   if(  ($_REQUEST["price"]/$_REQUEST["progress"]) > ($_SESSION["money"]/30.0))
-                       echo"<script type='text/javascript'>alert('ราคาสูงเกินไป');</script>";
-                   else{
-                        $_SESSION["musthave"] = ($_REQUEST["price"]/$_REQUEST["progress"]); 
-                        $_SESSION["namelist"] = $_REQUEST["name"];
-                        $_SESSION["price"] = $_REQUEST["price"];
-                        $_SESSION["duration"] = $_REQUEST["progress"];
-                   echo("<script>window.location = 'saveToBuy2.php';</script>");
+                   if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
+                        if(empty($_REQUEST["name"])){
+                           echo"<script type='text/javascript'>alert('โปรดกรอกชื่อสินค้า');</script>";
+                        }
+                        if(empty($_REQUEST["price"])){
+                           echo"<script type='text/javascript'>alert('โปรดกรอกจำนวนเงินของสินค้า');</script>";
+                        }
+                        if($_SESSION["type"] == "monthly"){
+                            if(  ($_REQUEST["price"]/$_REQUEST["progress"]) > ($_SESSION["money"]/30.0))
+                                echo"<script type='text/javascript'>alert('ราคาสูงเกินไป');</script>";
+                            else{
+                                $_SESSION["musthave"] = ($_REQUEST["price"]/$_REQUEST["progress"]); 
+                                $_SESSION["namelist"] = $_REQUEST["name"];
+                                $_SESSION["price"] = $_REQUEST["price"];
+                                $_SESSION["duration"] = $_REQUEST["progress"];
+                                echo("<script>window.location = 'saveToBuy2.php';</script>");
+                           }
+                        }
+                        if($_SESSION["type"] == "daily"){
+        //                   echo"<script type='text/javascript'>alert(' ".$_SESSION["type"]."');</script>";
+                            if(  ($_REQUEST["price"]/$_REQUEST["progress"]) > ($_SESSION["money"]))
+                                echo"<script type='text/javascript'>alert('ราคาสูงเกินไป');</script>";
+                            else{
+                                $_SESSION["musthave"] = ($_REQUEST["price"]/$_REQUEST["progress"]); 
+                                $_SESSION["namelist"] = $_REQUEST["name"];
+                                $_SESSION["price"] = $_REQUEST["price"];
+                                $_SESSION["duration"] = $_REQUEST["progress"];
+                                echo("<script>window.location = 'saveToBuy2.php';</script>");
+                            }
+                        }
+
                    }
-                     
-                }
-              if($_SESSION["type"] == "daily"){
-//                   echo"<script type='text/javascript'>alert(' ".$_SESSION["type"]."');</script>";
-                   if(  ($_REQUEST["price"]/$_REQUEST["progress"]) > ($_SESSION["money"]))
-                       echo"<script type='text/javascript'>alert('ราคาสูงเกินไป');</script>";
-                  else{
-                        $_SESSION["musthave"] = ($_REQUEST["price"]/$_REQUEST["progress"]); 
-                        $_SESSION["namelist"] = $_REQUEST["name"];
-                        $_SESSION["price"] = $_REQUEST["price"];
-                        $_SESSION["duration"] = $_REQUEST["progress"];
-                   echo("<script>window.location = 'saveToBuy2.php';</script>");
-                  }
-                }
-              
-           }
-            
-                 
         ?>
             <header id="masthead" class="navbar navbar-sticky swatch-red-white" role="banner">
             <div class="container">

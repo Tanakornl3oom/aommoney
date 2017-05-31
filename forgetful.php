@@ -28,48 +28,44 @@
 			<div id="bg"></div>
 			<div id="overlay"></div>
             
-			<div id="main">
+            <div id="main">
 				<!-- Header -->
-                    <?php
-                                $host = "mysql.hostinger.in.th";
-                                $username = "u800381696_admin";
-                                $password = "z1x2c3";
-                                $dbname = "u800381696_mydb";
-                                $objConnect =  mysqli_connect($host,$username,$password,$dbname);
+                <?php
+                    $host = "mysql.hostinger.in.th";
+                    $username = "u800381696_admin";
+                    $password = "z1x2c3";
+                    $dbname = "u800381696_mydb";
+                    $objConnect =  mysqli_connect($host,$username,$password,$dbname);
                  
-                        if($_SERVER["REQUEST_METHOD"] == "POST" ){
-                             
-                            $email =  mysqli_real_escape_string($objConnect,$_POST['txt_id']);
-                             
-                            $strSQL = "SELECT * FROM login WHERE LEmail = '".$email."'";
-                            $objQuery = $objConnect ->query($strSQL);
-                            $objResult = $objQuery->fetch_array();
-                            
-                            
-                            if($objResult) {
+                    if($_SERVER["REQUEST_METHOD"] == "POST" ){
+                        $email =  mysqli_real_escape_string($objConnect,$_POST['txt_id']);
+                        $strSQL = "SELECT * FROM login WHERE LEmail = '".$email."'";
+                        $objQuery = $objConnect ->query($strSQL);
+                        $objResult = $objQuery->fetch_array();
+                        if($objResult) {
 //                                echo"<script type='text/javascript'>alert('password is ".$objResult['LPassword']."');</script>";
 //                                echo("<script>window.location = 'login.html';</script>");
-                                $emailto=$email; //อีเมล์ผู้รับ
-                                $subject='Your password that you forgot | AOMMONEY'; //หัวข้อ
-                                $header.= "Content-type: text/html; charset=windows-620\n";
-                                $header.="from: AOMMONEY"; //ชื่อและอีเมลผู้ส่ง
-                                $messages.= "Hello, ".$email."<br> Your password is ".$objResult['LPassword']."<br><br><br><br>AOMMONEY TEAM."; //ข้อความ
+                            $emailto=$email; //อีเมล์ผู้รับ
+                            $subject='Your password that you forgot | AOMMONEY'; //หัวข้อ
+                            $header.= "Content-type: text/html; charset=windows-620\n";
+                            $header.="from: AOMMONEY"; //ชื่อและอีเมลผู้ส่ง
+                            $messages.= "Hello, ".$email."<br> Your password is ".$objResult['LPassword']."<br><br><br><br>AOMMONEY TEAM."; //ข้อความ
 
-                                $send_mail = mail($emailto,$subject,$messages,$header);
+                            $send_mail = mail($emailto,$subject,$messages,$header);
 
-                                if(!$send_mail){
-                                    echo"<script type='text/javascript'>alert('Sending unsuccess. Try again later. T_T');</script>";
-                                }else{
-                                    echo "ส่งเมลล์สำเร็จ";
-                                    echo"<script type='text/javascript'>alert('Sending success. Please check your email or junk mail.');</script>";
-                                echo("<script>window.location = 'login.html';</script>");
-                                }
+                            if(!$send_mail){
+                                echo"<script type='text/javascript'>alert('Sending unsuccess. Try again later. T_T');</script>";
                             }else{
-                                echo"<script type='text/javascript'>alert('Email invalid');</script>";
-                                echo("<script>window.location = 'forgetful.php';</script>");
+                                echo "ส่งเมลล์สำเร็จ";
+                                echo"<script type='text/javascript'>alert('Sending success. Please check your email or junk mail.');</script>";
+                            echo("<script>window.location = 'login.html';</script>");
                             }
-                            mysqli_close($objConnect);
+                        }else{
+                            echo"<script type='text/javascript'>alert('Email invalid');</script>";
+                            echo("<script>window.location = 'forgetful.php';</script>");
                         }
+                        mysqli_close($objConnect);
+                    }
                         
                         
                     ?>

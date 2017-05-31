@@ -19,23 +19,24 @@
 			<div id="bg"></div>
 <!--			<div id="overlay"></div>-->
             <?php
-	               session_start(); mysql_connect("mysql.hostinger.in.th","u800381696_admin","z1x2c3");
-                    mysql_select_db("u800381696_mydb");
+                session_start();
+                mysql_connect("mysql.hostinger.in.th","u800381696_admin","z1x2c3");
+                mysql_select_db("u800381696_mydb");
                 if($_SESSION["user"] != ""){
                     $strSQL = "SELECT * FROM login WHERE LUser = '". $_SESSION["user"]."' " ;
                     $objQuery = mysql_query($strSQL);
-	               $objResult = mysql_fetch_array($objQuery);
-                     $_SESSION["email"] = $objResult['LEmail'];
+                    $objResult = mysql_fetch_array($objQuery);
+                    $_SESSION["email"] = $objResult['LEmail'];
                 }else{
                     $strSQL = "SELECT * FROM login WHERE LEmail = '". $_SESSION["email"]."'" ;
                     $objQuery = mysql_query($strSQL);
-	               $objResult = mysql_fetch_array($objQuery);
+                    $objResult = mysql_fetch_array($objQuery);
                     $_SESSION["user"] = $objResult['LUser'];
                 }
                 $_SESSION["name"]  =$objResult['LName'];
-                    $_SESSION["lastname"]=$objResult['LLastName'];
-                    $_SESSION["type"]=$objResult['LType'];
-                    $_SESSION["money"] =$objResult['LMoney'];
+                $_SESSION["lastname"]=$objResult['LLastName'];
+                $_SESSION["type"]=$objResult['LType'];
+                $_SESSION["money"] =$objResult['LMoney'];
                
           
                 session_write_close();
