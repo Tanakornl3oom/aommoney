@@ -31,10 +31,10 @@
             <div id="main">
 				<!-- Header -->
                 <?php
-                    $host = "mysql.hostinger.in.th";
-                    $username = "u800381696_admin";
-                    $password = "z1x2c3";
-                    $dbname = "u800381696_mydb";
+                    $host = "xxxx";
+                    $username = "xxxx";
+                    $password = "xxxx";
+                    $dbname = "xxxx";
                     $objConnect =  mysqli_connect($host,$username,$password,$dbname);
                  
                     if($_SERVER["REQUEST_METHOD"] == "POST" ){

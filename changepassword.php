@@ -1,8 +1,8 @@
 
     <?php 
         session_start();
-		 mysql_connect("mysql.hostinger.in.th","u800381696_admin","z1x2c3");
-	    mysql_select_db("u800381696_mydb");
+		 mysql_connect("xxxx","xxxx","xxxx");
+	    mysql_select_db("xxxx");
 		if(isset($_POST['repass']))
 		{
 		$old_pass=$_POST['oldPwd'];

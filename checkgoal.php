@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $conn = new mysqli("mysql.hostinger.in.th","u800381696_admin","z1x2c3","u800381696_mydb");
+    $conn = new mysqli("xxxx","xxxx","xxxx","xxxx");
     if($conn->connect_error){
        die("Connection failed:" .$conn->connect_error);
     }

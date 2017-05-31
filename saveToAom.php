@@ -38,7 +38,7 @@
             <?php
                 session_start();
                 if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
-                    $conn = new mysqli("mysql.hostinger.in.th","u800381696_admin","z1x2c3","u800381696_mydb");
+                    $conn = new mysqli("xxxx","xxxx","xxxx","xxxx");
                     $conn->set_charset("utf8");
 
                     $amount = $_REQUEST['txt_id'];

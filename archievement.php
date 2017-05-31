@@ -22,8 +22,8 @@
             
             <?php
                 session_start();
-                $objConnect = mysql_connect("mysql.hostinger.in.th","u800381696_admin","z1x2c3") or die("Error Connect to Database");
-                $objDB = mysql_select_db("u800381696_mydb");
+                $objConnect = mysql_connect("xxxx","xxxx","xxxx") or die("Error Connect to Database");
+                $objDB = mysql_select_db("xxxx");
                 mysql_query("SET NAMES UTF8");
                
                 
